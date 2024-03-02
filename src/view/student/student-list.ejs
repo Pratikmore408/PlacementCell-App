@@ -1,0 +1,42 @@
+
+
+<h1 class="mt-5 mb-4 " >Students</h1>
+
+<a href="/student/add" class="btn btn-primary" >Add Student</a>
+<a href="/student/download" class="btn btn-primary" >Download CSV</a>
+<br>
+<br>
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">college</th>
+                    <th scope="col">Batch</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% students.forEach(student=>{ %>
+                    <tr>
+                        <th><%= student._id %></th>
+                        <td><%= student.name %></td>
+                        <td><%= student.college %> </td>
+                        <td><%= student.batch %> </td>
+                        <td><%= student.status %> </td>
+                        <td>
+                        
+                        <%if(student.status !== 'placed'){%>
+                       
+                            <a href="/interview/<%= student._id %>" class="btn btn-primary" >Add-Interview</a>
+                        
+                        <%  }else{ %>
+                            
+                            <%  }%>
+                        </td>
+                    </tr>
+              <%  }) %>
+              
+            </tbody>
+        </table>
