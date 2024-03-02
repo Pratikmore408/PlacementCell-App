@@ -8,6 +8,7 @@ export default class InterviewController{
     }
 
     async getAddInterviewForm(req, res){
+        // get the interview form
         res.render('interview/interview-form', {
             errorMessage: null,
             userEmail: req.session.userEmail  
@@ -15,9 +16,11 @@ export default class InterviewController{
     }
 
     async getAddStudentInterviewForm(req, res){
+        // get the id
         const id = req.params.id;
-        console.log(id);
+        // get student details from id
         const student = await this.interviewRepository.getStudent(id);
+        // render interview form with student details
         res.render('interview/interview-form-from-student', {
             errorMessage: null,
             student:student,
@@ -27,7 +30,9 @@ export default class InterviewController{
 
     async getAllInterviews(req, res){
         try{
+            // get the list of all interviews
             const interviews = await this.interviewRepository.getAll();
+            // render the interview form
             res.render('interview/interview-list', {
             userEmail: req.session.userEmail,
             interviews: interviews, 
@@ -40,14 +45,18 @@ export default class InterviewController{
 
     async addInterview(req, res){
         try{
+            // get the data from body
             const {student, email, company, date, time} = req.body;
-            await this.interviewRepository.addInterview(student, email, company, date, time);
+            // add interview
+            await this.interviewRepository.addInterview(email, company, date, time);
             const interviews = await this.interviewRepository.getAll();
+            // render all interviews
             res.render('interview/interview-list', {
                 userEmail: req.session.userEmail,
                 interviews: interviews, 
             })
         }catch(err){
+            // if errors return the interview form agian with err
             console.log("error in rendering interviews"+ err);
             res.render('interview/interview-form', {
                 errorMessage: err.message,
@@ -58,18 +67,20 @@ export default class InterviewController{
 
     async addResult(req, res){
         try{
+            // get the data from body
             const {interviewId, result} = req.body;
+            // update the result
             await this.interviewRepository.updateResult(interviewId, result);
             const interviews = await this.interviewRepository.getAll();
-            // console.log(interviews);
+            // render the interview list with result
             res.render('interview/interview-list', {
                 userEmail: req.session.userEmail,
                 interviews: interviews, 
             })
         }catch(err){
+            // if errors return the interview list again with err
             console.log("error in rendering interviews"+ err);
-            res.render('interview/interview-form', {
-                errorMessage: err.message,
+            res.render('interview/interview-list', {
                 userEmail: req.session.userEmail  
             });
         }

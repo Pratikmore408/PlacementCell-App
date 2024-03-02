@@ -1,3 +1,4 @@
+// student model
 export default class StudentModel {
     constructor(name, email,batch, college, status, DSA_Final_Score, WebD_Final_Score, React_Final_Score) {
         this.name = name;

@@ -1,43 +1,38 @@
-
-import express from 'express'
+import express from 'express';
 import UserController from '../controller/user.controller.js';
 import { auth } from '../middleware/auth.middleware.js';
-// import passport from 'passport';
-
 
 const userRouter = express.Router();
-
-// create controller intance
 const userController = new UserController();
 
-userRouter.get('/', auth, (req, res)=>{
-    userController.getHome(req, res)
+// Route to render the home page
+userRouter.get('/', auth, (req, res) => {
+    userController.getHome(req, res);
 });
 
-userRouter.get('/signup', (req, res)=>{
-    userController.getSignup(req, res)
+// Route to render the signup form
+userRouter.get('/signup', (req, res) => {
+    userController.getSignup(req, res);
 });
 
-userRouter.post('/signup', (req, res)=>{
-    userController.postSignup(req, res)
+// Route to handle signup form submission
+userRouter.post('/signup', (req, res) => {
+    userController.postSignup(req, res);
 });
 
-userRouter.get('/signin', (req, res)=>{
-    userController.getSignin(req, res)
+// Route to render the signin form
+userRouter.get('/signin', (req, res) => {
+    userController.getSignin(req, res);
 });
 
-userRouter.post('/signin', (req, res)=>{
-    userController.postSignin(req, res)
+// Route to handle signin form submission
+userRouter.post('/signin', (req, res) => {
+    userController.postSignin(req, res);
 });
 
-userRouter.get('/signout', auth, (req, res)=>{
-    userController.signOut(req, res)
+// Route to sign out
+userRouter.get('/signout', auth, (req, res) => {
+    userController.signOut(req, res);
 });
 
-// route to req google authentication
-// userRouter.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
-// route to handle google callback
-// userRouter.get('/auth/google/callback', passport.authenticate('google', {failureRedirect: '/signin'}), (req, res)=>{
-//     userController.getHome(req, res)});
-
-export default userRouter
+export default userRouter;
